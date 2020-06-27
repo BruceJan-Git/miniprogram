@@ -1,0 +1,23 @@
+<!-- <form bindsubmit="submit">
+	<view class="section section_gap">
+		<text class="section__title">滑动选择订购数量</text>
+		<view class="body-view">
+			<slider bindchange="sliderchange" step="5"  color="#fa805c" selected-color="#00b26a" block-size="18" min="0" max="50"/>
+		</view>
+	</view>
+	您选择了:{{nums}}件
+  <button form-type="submit" type="primary">点击订购</button>
+</form> -->
+
+
+<form bindsubmit="submit">
+	<view>请选择商品数量: <text>{{nums}}</text> </view>
+	<view class="choose">
+		<view class="btn">
+			<text bindtap="handleAdd">+</text>
+			<text class="content">{{nums}}</text>
+			<text bindtap="handleRed">-</text>
+		</view>
+	</view>
+	<button form-type="submit" type="primary">点击订购</button>
+</form>

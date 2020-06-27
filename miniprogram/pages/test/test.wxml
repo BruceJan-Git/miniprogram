@@ -1,0 +1,6 @@
+<!--miniprogram/pages/test/test.wxml-->
+<text>miniprogram/pages/test/test.wxml</text>
+<view>
+	{{ msg }}
+</view>
+<button bindtap="handleTab"> 点击 </button>

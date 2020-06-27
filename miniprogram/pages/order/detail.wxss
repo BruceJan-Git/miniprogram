@@ -1,0 +1,33 @@
+/* miniprogram/pages/order/detail.wxss */
+.detail image {
+  width: 100%;
+  /* height: 100%; */
+}
+.meta {
+  padding: 10rpx 10rpx;
+  background-color: #fff;
+
+}
+
+.detail text {
+  font-size: small;
+  color: #666;
+}
+
+.detail .name {
+  display: block;
+  font-weight: 500;
+  font-size: inherit;
+  color: black;
+}
+
+.desc {
+  display: block;
+  margin: 12rpx 0;
+}
+
+.count, .sell, .overplus {
+  padding-right: 100rpx;
+}
+
+

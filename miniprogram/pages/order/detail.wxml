@@ -1,0 +1,12 @@
+<!--miniprogram/pages/order/detail.wxml-->
+<view class="detail" wx:for="{{ meta }}" wx:key="{{name}}">
+	<image src="{{ item.src }}"></image>
+	<view class="meta">
+		<text class="name">{{ item.name }}</text>
+		<text class="desc">{{ item.desc }}</text>
+		<text class="count">库存:{{ item.count }}</text>
+		<text class="sell">已售:{{ item.sell }}</text>
+		<text class="overplus">剩余:{{ item.overplus }}</text>
+	</view>
+</view>
+<sub />
