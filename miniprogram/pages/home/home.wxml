@@ -1,9 +1,33 @@
 <!--miniprogram/pages/home/home.wxml-->
 <view class="carrousel">
-	<swiper autoplay="1000" indicator-dots="true" circular="true" indicator-color="rgba(255, 255, 254)" indicator-active-color="#00b26a">
+	<swiper autoplay="1000" indicator-dots="true" circular="true" indicator-color="rgba(246, 246, 246)" indicator-active-color="#00b26a">
 		<swiper-item wx:for='{{ meta }}' wx:key='pid' bindtap="handleJump" data-id="{{item.pid}}">
 			<image src="{{ item.src }}" />
 		</swiper-item>
 	</swiper>
 </view>
-
+<!-- 活动告示 -->
+<view class="activity">
+	<image src="../../images/logo.png"></image>
+	<view>订单动态:</view>
+	<swiper vertical="true" autoplay="true" interval="2000" duration="500" circular="true">
+		<swiper-item wx:for="{{activity}}" wx:key="id">
+			<text>{{item.msg}}</text>
+		</swiper-item>
+	</swiper>
+</view>
+<!-- 首页商品版块 -->
+<view class="produc">
+	<view wx:for="{{meta}}" wx:key="pid">
+		<view>
+			<image src="{{item.src}}" data-id="{{item.pid}}" />
+		</view>
+		<view class="goods-item">
+			<text class="title">{{item.name}}</text>
+			<text class="desp">{{item.desc}}</text>
+			<text class="meta">{{item.count}}</text>
+			<text class="sell">{{item.sell}}</text>
+			<text class="overplus">{{item.overplus}}</text>
+		</view>
+	</view>
+</view>

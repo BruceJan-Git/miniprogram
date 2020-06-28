@@ -88,7 +88,7 @@ Page({
       }
     ],
     nums: 0,
-    // detial: ''
+    detail: []
   },
 
   handleRed() {
@@ -118,16 +118,15 @@ Page({
       }
     })
     this.setData({
-      detial: res
+      detail: res
     })
-    console.log(this.data.detial)
+    console.log(this.data.detail)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    console.log(this.data.detail)
   },
 
   /**
