@@ -1,0 +1,7 @@
+input {
+  display: inline-block;
+  width: 60rpx;
+  height: 30rpx;
+  border: none;
+  outline: none;
+}

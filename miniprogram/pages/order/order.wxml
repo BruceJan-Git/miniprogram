@@ -9,9 +9,8 @@
 <!-- 库存 -->
 <!-- <view class="items hots" hidden="{{currentIndex!=='stock'}}"> -->
 <view wx:if='{{currentTab==="stock"}}' class="items">
-	<!-- key怎么设置 -->
-	<navigator wx:for='{{ meta }}' wx:key='name' url="/pages/order/detail">
-		<view class="item">
+	<navigator wx:for='{{ meta }}' wx:key='name'>
+		<view class="item" bindtap="handleJump" data-id="{{item.pid}}">
 			<!-- 产品展示 -->
 			<image src="{{item.src}}"></image>
 			<!-- 信息 -->
@@ -38,66 +37,25 @@
 
 <!-- 订单 -->
 <view wx:if='{{currentTab==="order"}}' class="order">
-	<!-- 切换栏 -->
-	<view class="swiper-tab">
-		<block wx:for="{{swipertab}}" wx:key="sptab">
-			<view class="swiper-tab-list {{currtab == item.index ? 'on' : ''}}" data-current="{{item.index}}" bindtap="tabSwitch">
-				{{item.name}}
+	<view class="orderDetails" wx:for="{{order}}" wx:key="name">
+		<view class="orderListTitle">
+			<text class="userName">{{item.name}}</text>
+			<text class="orderStatus">{{item.state}}</text>
+		</view>
+		<view class="orderListDetails">
+			<view class="productImg">
+				<image src="{{item.url}}" background-size="cover"></image>
 			</view>
-		</block>
+			<view class="productInfo">
+				<view class="productTitle">预定时间: {{item.time}}</view>
+				<text class="productPrice">当前状态：{{item.status}}</text>
+				<text style="display:block">数量: {{ item.nums }}</text>
+			</view>
+		</view>
+		<view class="productCount">
+			<view>
+				<text>合计：￥{{item.money}}</text>
+			</view>
+		</view>
 	</view>
-
-	<swiper current="{{currtab}}" class="swiper-box" duration="300" style="height:{{deviceH-31}}px" bindchange="tabChange">
-		<!-- 已选择 -->
-		<swiper-item>
-			<scroll-view class="hot-box" scroll-y="true">
-				<view class="orderDetails" wx:for="{{alreadyOrder}}" wx:key=" ">
-					<view class="orderListTitle">
-						<text class="userName">{{item.name}}</text>
-						<text class="orderStatus">{{item.state}}</text>
-					</view>
-					<view class="orderListDetails">
-						<view class="productImg">
-							<image src="{{item.url}}" background-size="cover"></image>
-						</view>
-						<view class="productInfo">
-							<view class="productTitle">预定时间: {{item.time}}</view>
-							<text class="productPrice">当前状态：{{item.status}}</text>
-							<text style="display:block">数量: {{ item.nums }}</text>
-						</view>
-					</view>
-					<view class="productCount">
-						<view>
-							<text>合计：￥{{item.money}}</text>
-						</view>
-					</view>
-				</view>
-			</scroll-view>
-		</swiper-item>
-		<!-- 待确认 -->
-		<swiper-item>
-			<scroll-view class="hot-box" scroll-y="true">
-				<view class="orderDetails" wx:for="{{waitPayOrder}}" wx:key=" ">
-					<view class="orderListTitle">
-						<text class="userName">{{item.name}}</text>
-						<text class="orderStatus">{{item.state}}</text>
-					</view>
-					<view class="orderListDetails">
-						<view class="productImg">
-							<image src="{{item.url}}" background-size="cover"></image>
-						</view>
-						<view class="productInfo">
-							<view class="productTitle">预定时间: {{item.time}}</view>
-							<text class="productPrice">当前状态：{{item.status}}</text>
-						</view>
-					</view>
-					<view class="productCount">
-						<view>
-							<text>合计：￥{{item.money}}</text>
-						</view>
-					</view>
-				</view>
-			</scroll-view>
-		</swiper-item>
-	</swiper>
 </view>

@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "custom-form-field": "../custom-form-field/custom-form-field"
+  }
 }

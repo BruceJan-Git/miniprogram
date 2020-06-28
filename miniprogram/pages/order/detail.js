@@ -1,12 +1,13 @@
 // miniprogram/pages/order/detail.js
 Page({
-  
+
   /**
    * 页面的初始数据
    */
   data: {
-    pageData:{},
+    pageData: {},
     meta: [{
+        pid: 1,
         name: '古城百利包',
         src: '../../images/updata/chunnai.jpg',
         type: '纯牛奶',
@@ -14,21 +15,119 @@ Page({
         count: 0,
         sell: 900,
         overplus: 100
-      }],
+      },
+      {
+        pid: 2,
+        name: '古城枕奶包',
+        src: '../../images/updata/zhennai.jpg',
+        type: '纯牛奶',
+        desc: '古城纯牛奶无菌枕古城奶220ml*16袋硬纸袋装整箱',
+        count: 1000,
+        sell: 900,
+        overplus: 100
+      },
+      {
+        pid: 3,
+        name: '古城酸牛奶',
+        src: '../../images/updata/suannaiDetail.jpg',
+        type: '酸牛奶',
+        desc: '古城乳酸菌酸牛奶饮料,古城酸奶发酵含乳饮品250ml*15',
+        count: 1000,
+        sell: 900,
+        overplus: 100
+      },
+      {
+        pid: 4,
+        name: '古城奶粉400g装',
+        src: '../../images/updata/naifen350.jpg',
+        type: '奶粉',
+        desc: '全脂加糖奶粉速溶牛奶粉400g散装山西特产成人青少年学生儿童',
+        count: 0,
+        sell: 900,
+        overplus: 100
+      },
+      {
+        pid: 5,
+        name: '古城奶粉350g散装',
+        src: '../../images/updata/naifen350.jpg',
+        type: '奶粉',
+        desc: '古城奶粉成人全脂加糖独立装350g营养早餐',
+        count: 0,
+        sell: 900,
+        overplus: 100
+      },
+      {
+        pid: 6,
+        name: '古城无糖奶粉',
+        src: '../../images/updata/naifenSuger.jpg',
+        type: '奶粉',
+        desc: '古城奶粉成人全脂无糖400g克烘焙甜品饮品店奶茶专用',
+        count: 0,
+        sell: 900,
+        overplus: 100
+      },
+      {
+        pid: 7,
+        name: '古城庆典',
+        src: '../../images/updata/qingdian.jpg',
+        type: '奶粉',
+        desc: '古城纯牛奶整箱40年庆典青少年礼盒装全脂灭菌乳',
+        count: 0,
+        sell: 900,
+        overplus: 100
+      },
+      {
+        pid: 8,
+        name: '古城三晋牧场',
+        src: '../../images/updata/sanjin.jpg',
+        type: '奶粉',
+        desc: '古城纯牛奶整箱三晋牧场生牛乳250mlX12盒礼盒装 送礼',
+        count: 0,
+        sell: 900,
+        overplus: 100
+      }
+    ],
+    nums: 0,
+    // detial: ''
+  },
+
+  handleRed() {
+    let res = this.data.nums > 0 ? --this.data.nums : '0'
+    this.setData({
+      nums: res
+    })
+  },
+  handleAdd() {
+    this.setData({
+      nums: ++this.data.nums
+    })
+  },
+
+  formSubmit: function (e) {
+    console.info('表单提交携带数据', e.detail.value)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const id = parseInt(options.id)
+    let res = this.data.meta.filter((item, index, self) => {
+      if (item.pid === id) {
+        return item
+      }
+    })
+    this.setData({
+      detial: res
+    })
+    console.log(this.data.detial)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    console.log(this.data.detail)
   },
 
   /**

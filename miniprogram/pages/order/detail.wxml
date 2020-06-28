@@ -1,5 +1,5 @@
 <!--miniprogram/pages/order/detail.wxml-->
-<view class="detail" wx:for="{{ meta }}" wx:key="{{name}}">
+<view class="detail" wx:for="{{ detail }}" wx:key="pid">
 	<image src="{{ item.src }}"></image>
 	<view class="meta">
 		<text class="name">{{ item.name }}</text>
@@ -9,4 +9,16 @@
 		<text class="overplus">剩余:{{ item.overplus }}</text>
 	</view>
 </view>
-<sub />
+<!-- 表单 -->
+<form bindsubmit="formSubmit">
+	<view>请选择商品数量:</view>
+	<view class="choose">
+		<view class="btn">
+			<text bindtap="handleRed">-</text>
+			<text class="content">{{nums}}</text>
+			<text bindtap="handleAdd">+</text>
+			<text>已选择:{{nums}} 件商品</text>
+		</view>
+	</view>
+	<button form-type="submit" type="primary">点击订购</button>
+</form>
