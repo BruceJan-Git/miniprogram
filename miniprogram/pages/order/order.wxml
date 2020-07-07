@@ -9,7 +9,7 @@
 <!-- 库存 -->
 <!-- <view class="items hots" hidden="{{currentIndex!=='stock'}}"> -->
 <view wx:if='{{currentTab==="stock"}}' class="items">
-	<navigator wx:for='{{ meta }}' wx:key='name'>
+	<view wx:for='{{ meta }}' wx:key='name'>
 		<view class="item" bindtap="handleJump" data-id="{{item.pid}}">
 			<!-- 产品展示 -->
 			<image src="{{item.src}}"></image>
@@ -20,7 +20,7 @@
 				<text class="desc">描述:{{ item.desc }}</text>
 				<text class="count">库存:{{ item.count }}</text>
 				<text class="sell"> 已售:{{ item.sell }}</text>
-				<text class="overplus"> 剩余:{{ item.overplus }}</text>
+				<text class="overplus"> 剩余:{{ item.count - item.sell }}</text>
 			</view>
 			<!-- 状态 -->
 			<view class="status">
@@ -32,30 +32,39 @@
 				</block>
 			</view>
 		</view>
-	</navigator>
+	</view>
+	<!-- 暂无更多 -->
+	<view>
+		<text style="display: block; width: 100%; text-align: center; padding: 10rpx 0; color:#ccc; background-color:#fff;">暂无更多...</text>
+	</view>
 </view>
 
 <!-- 订单 -->
 <view wx:if='{{currentTab==="order"}}' class="order">
-	<view class="orderDetails" wx:for="{{order}}" wx:key="name">
-		<view class="orderListTitle">
-			<text class="userName">{{item.name}}</text>
-			<text class="orderStatus">{{item.state}}</text>
-		</view>
-		<view class="orderListDetails">
-			<view class="productImg">
-				<image src="{{item.url}}" background-size="cover"></image>
+	<block>
+		<view hidden="{{!order[0]}}" class="orderDetails" wx:for="{{order}}" wx:key="name">
+			<view class="orderListTitle">
+				<text class="userName">{{item.pName}}</text>
+				<!-- <text class="orderStatus">{{item.status}}</text> -->
 			</view>
-			<view class="productInfo">
-				<view class="productTitle">预定时间: {{item.time}}</view>
-				<text class="productPrice">当前状态：{{item.status}}</text>
-				<text style="display:block">数量: {{ item.nums }}</text>
+			<view class="orderListDetails">
+				<view class="productImg">
+					<image src="{{item.pic_url}}" background-size="cover"></image>
+				</view>
+				<view class="productInfo">
+					<view class="productTitle">预定时间: {{item.timer}}</view>
+					<text>当前状态：<text style="{{item.flag_sub ? 'color:green' : ''}}">{{item.status}}</text></text>
+					<text style="display:block">数量: {{ item.nums }}</text>
+				</view>
+			</view>
+			<view class="productCount">
+				<view>
+					<text>合计：￥{{item.price * item.nums}}</text>
+				</view>
 			</view>
 		</view>
-		<view class="productCount">
-			<view>
-				<text>合计：￥{{item.money}}</text>
-			</view>
+		<view hidden="{{order[0]}}">
+			<text style="display:block; height:1000rpx; line-height: 1000rpx; text-align: center; color:#ccc">暂无订单</text>
 		</view>
-	</view>
+	</block>
 </view>

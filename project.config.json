@@ -25,7 +25,7 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"appid": "wxe15c819c99071e8d",
@@ -33,6 +33,7 @@
 	"libVersion": "2.8.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -54,39 +55,62 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "db guide",
 					"pathName": "pages/databaseGuide/databaseGuide",
-					"query": ""
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": 1,
-					"name": "pages/home/home",
+					"name": "主页",
 					"pathName": "pages/home/home",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/order/order",
+					"id": 2,
+					"name": "订单",
 					"pathName": "pages/order/order",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/test/test",
-					"pathName": "pages/test/test",
+					"id": 4,
+					"name": "详情",
+					"pathName": "pages/order/detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "我的",
+					"pathName": "pages/my/my",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/order/detail",
-					"pathName": "pages/order/detail",
+					"name": "注册",
+					"pathName": "pages/register/register",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "登录",
+					"pathName": "pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "Demo",
+					"pathName": "pages/index/index",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -1,10 +1,13 @@
 {
   "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/openapi/cloudid/cloudid",
+    "pages/register/register",
     "pages/home/home",
     "pages/order/order",
     "pages/order/detail",
     "pages/my/my",
-    "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -14,7 +17,6 @@
     "pages/openapi/openapi",
     "pages/openapi/serverapi/serverapi",
     "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
     "pages/im/im",
     "pages/im/room/room",
     "pages/test/test",
@@ -22,10 +24,10 @@
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#00b26a",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#dfddef",
     "navigationBarTitleText": "古城订单平台",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "backgroundColor": "#f0f0f0",

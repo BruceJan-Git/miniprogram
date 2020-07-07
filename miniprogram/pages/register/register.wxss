@@ -1,0 +1,36 @@
+page {
+  background-color: #fff;
+}
+
+.reg_form {
+  display: flex;
+  height: 888rpx;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.reg_form view {
+  padding: 0 20rpx;
+}
+
+.reg_form text {
+  display: block;
+  height: 34px;
+  line-height: 34px;
+  background-color: #ccc;
+}
+
+.reg_form input {
+  border: 1px solid #ccc;
+  height: 34px;
+  line-height: 34px;
+  background-color: #ccc;
+  margin-bottom: 20rpx;
+}
+
+.prompt {
+  padding: 20rpx 20rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #999;
+}

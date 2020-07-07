@@ -1,0 +1,35 @@
+page {
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+  margin-top: 120rpx;
+}
+
+form input {
+  margin: 20rpx 10rpx;
+  padding: 0 30rpx;
+}
+
+form button {
+  margin: 40rpx 10rpx;
+}
+
+.icon-box {
+  text-align: center;
+}
+
+.icon-box .icon-box-title {
+  color: red;
+}
+
+.icon-box .icon-box-desc {
+  color: #888;
+}

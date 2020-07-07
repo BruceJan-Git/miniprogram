@@ -1,4 +1,4 @@
-<!--miniprogram/pages/home/home.wxml-->
+<!-- 轮播图区 -->
 <view class="carrousel">
 	<swiper autoplay="1000" indicator-dots="true" circular="true" indicator-color="rgba(246, 246, 246)" indicator-active-color="#00b26a">
 		<swiper-item wx:for='{{ meta }}' wx:key='pid' bindtap="handleJump" data-id="{{item.pid}}">
@@ -6,28 +6,49 @@
 		</swiper-item>
 	</swiper>
 </view>
-<!-- 活动告示 -->
+
+<!-- 订单动态滚动 -->
 <view class="activity">
 	<image src="../../images/logo.png"></image>
-	<view>订单动态:</view>
-	<swiper vertical="true" autoplay="true" interval="2000" duration="500" circular="true">
-		<swiper-item wx:for="{{activity}}" wx:key="id">
-			<text>{{item.msg}}</text>
-		</swiper-item>
-	</swiper>
+	<view>订单动态 :</view>
+	<block>
+		<swiper wx:if="{{orders[0]}}" vertical="true" autoplay="true" interval="3000" duration="500" circular="true">
+			<swiper-item wx:for="{{orders}}" wx:key="id">
+				<text>用户:{{item.user}}</text>
+				<text>订购产品:{{item.pName}}</text>
+				<text>订购数量:{{item.nums}}件</text>
+				<text>订购时间:{{item.timer}}</text>
+			</swiper-item>
+		</swiper>
+		<text wx:else style="display:block;text-align:center;color:#666;font-size:32rpx; padding:20rpx 0">暂无订单动态</text>
+	</block>
 </view>
+
 <!-- 首页商品版块 -->
-<view class="produc">
-	<view wx:for="{{meta}}" wx:key="pid">
-		<view>
-			<image src="{{item.src}}" data-id="{{item.pid}}" />
-		</view>
-		<view class="goods-item">
-			<text class="title">{{item.name}}</text>
-			<text class="desp">{{item.desc}}</text>
-			<text class="meta">{{item.count}}</text>
-			<text class="sell">{{item.sell}}</text>
-			<text class="overplus">{{item.overplus}}</text>
+<view class="pro_detail">
+	<view class="title">
+		<view>产品详情 :</view>
+		<image src="../../images/logo.png"></image>
+	</view>
+	<view class="produc">
+		<view wx:for="{{meta}}" wx:key="pid" class="" class="item" data-id="{{item.pid}}" bindtap="handleSkip">
+			<view class="box">
+				<view>
+					<image src="{{item.src}}" data-id="{{item.pid}}" mode="scaleToFill" style="height: 260rpx" />
+				</view>
+				<view class="goods-item">
+					<text class="name">{{item.name}}</text>
+					<text class="desp">{{item.desc}}</text>
+					<text class="stor">库存:{{item.count}}</text>
+					<text class="sell"> 已定购:{{item.sell}}</text>
+					<text class="overplus"> 剩余:{{item.count - item.sell}}</text>
+				</view>
+			</view>
 		</view>
 	</view>
+</view>
+
+<!-- 暂无更多 -->
+<view>
+	<text style="display: block; width: 100%; text-align: center; padding: 10rpx 0; color:#ccc; background-color:#fff;">暂无更多...</text>
 </view>

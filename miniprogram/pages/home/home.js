@@ -1,167 +1,98 @@
-// miniprogram/pages/home/home.js
+/**
+ * todo:
+ * 从订单页重定向到主页后,数据不会刷新
+ * 
+ * done:
+ *  * // 加载缓慢  =>下拉加载缓慢,
+ *  * 从订单页订单提交数据后,如果超过库存数量的处理(在订单详情页进行判断)
+ */
+
+// 获取产品
 import getPro from "../../modules/getPro";
-
+// 获取订单订购数量
+var getTotal = require('../../modules/getNums')
+const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
+  // 页面初始数据
   data: {
-    meta: [{
-        pid: 1,
-        name: '古城百利包',
-        src: '../../images/updata/chunnai.jpg',
-        type: '纯牛奶',
-        desc: '古城原味纯牛奶袋装整箱200ml*16袋百利包全脂灭菌乳',
-        count: 0,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 2,
-        name: '古城枕奶包',
-        src: '../../images/updata/zhennai.jpg',
-        type: '纯牛奶',
-        desc: '古城纯牛奶无菌枕古城奶220ml*16袋硬纸袋装整箱',
-        count: 1000,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 3,
-        name: '古城酸牛奶',
-        src: '../../images/updata/suannaiDetail.jpg',
-        type: '酸牛奶',
-        desc: '古城乳酸菌酸牛奶饮料,古城酸奶发酵含乳饮品250ml*15',
-        count: 1000,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 4,
-        name: '古城奶粉400g装',
-        src: '../../images/updata/naifen350.jpg',
-        type: '奶粉',
-        desc: '全脂加糖奶粉速溶牛奶粉400g散装山西特产成人青少年学生儿童',
-        count: 0,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 5,
-        name: '古城奶粉350g散装',
-        src: '../../images/updata/naifen350.jpg',
-        type: '奶粉',
-        desc: '古城奶粉成人全脂加糖独立装350g营养早餐',
-        count: 0,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 6,
-        name: '古城无糖奶粉',
-        src: '../../images/updata/naifenSuger.jpg',
-        type: '奶粉',
-        desc: '古城奶粉成人全脂无糖400g克烘焙甜品饮品店奶茶专用',
-        count: 0,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 7,
-        name: '古城庆典',
-        src: '../../images/updata/qingdian.jpg',
-        type: '奶粉',
-        desc: '古城纯牛奶整箱40年庆典青少年礼盒装全脂灭菌乳',
-        count: 0,
-        sell: 900,
-        overplus: 100
-      },
-      {
-        pid: 8,
-        name: '古城三晋牧场',
-        src: '../../images/updata/sanjin.jpg',
-        type: '奶粉',
-        desc: '古城纯牛奶整箱三晋牧场生牛乳250mlX12盒礼盒装 送礼',
-        count: 0,
-        sell: 900,
-        overplus: 100
-      }
-    ],
-    activity:[{
-      id: 1,
-      msg:'XXX商家下单,猛戳查看详情 >'
-    },
-    {
-      id: 2,
-      msg:'XXX商家下单,猛戳查看详情 >'
-    },
-    {
-      id: 3,
-      msg:'XXX商家下单,猛戳查看详情 >'
-    }
-  ]
+    // 产品信息
+    meta: '',
+    // 订单信息
+    orders: [],
   },
 
-  /**
-   * handleJump轮播图跳转
-   */
-
+  // handleJump轮播图跳转
   handleJump(e) {
     getPro(e)
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {},
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  // 商品详情跳转
+  handleSkip(e) {
+    getPro(e)
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  // 获取数据
+  onLoadData() {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    const db = wx.cloud.database()
+    // 获取产品
+    db.collection('products').where({}).get().then(res => {
+      this.setData({
+        meta: res.data
+      })
+      // 获取订单,轮播图动态展示
+      db.collection('orders').where({}).get().then(res => {
+        this.setData({
+          orders: res.data
+        })
+        wx.hideLoading()
+        wx.stopPullDownRefresh()
+      }).catch(err => console.log(err))
+    }).catch(err => console.log(err))
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  onGetTotal(id) {
+    // 获取订单订购数量(订购数量,以及所订购商品id)
+    let res = getTotal(id)
+    // var that = this
+    res.then(res => {
+      // 判断是否有订单信息
+      if (res) {
+        // that.onPullDownRefresh()
+        let [nums, id] = res
+        nums = Number(nums)
+        // 调用云函数,更新商品总数
+        wx.cloud.callFunction({
+          name: 'updater_total',
+          data: {
+            nums: nums,
+            id: id
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  // 生命周期函数--监听页面加载
+  onLoad: function (options) {
+    // 获取数据
+    this.onLoadData()
+    this.onGetTotal(options.id)
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  // 页面相关事件处理函数--监听用户下拉动作
   onPullDownRefresh: function () {
-
+    this.onLoadData()
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+  // 页面上拉触底事件的处理函数
+  onReachBottom: function () {},
 
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+  // 用户点击右上角分享
+  onShareAppMessage: function () {},
 })

@@ -1,0 +1,10 @@
+<image class="logo" src="../../images/logo.png" style="width:320rpx; margin:auto; padding-top:118rpx;" mode="widthFix" />
+<form bindsubmit="submit">
+	<input placeholder="请输入用户名" name="userName" focus="true" maxlength="14" adjust-position="true" />
+	<input placeholder="请输入密码" name="paw" type="password" maxlength="14" />
+	<button form-type="submit" type="primary" id="login" style="width:100%">登录</button>
+	<button form-type="submit" type="default" id="register" style="width:100%">注册</button>
+</form>
+<navigator url="../../pages/register/register?forgetPaw=userPaw">
+	<text style="color: red; font-size:16px; position: absolute; right: 30rpx; text-decoration:underline;">忘记密码</text>
+</navigator>

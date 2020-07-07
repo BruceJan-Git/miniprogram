@@ -1,4 +1,3 @@
-<!--miniprogram/pages/order/detail.wxml-->
 <view class="detail" wx:for="{{ detail }}" wx:key="pid">
 	<image src="{{ item.src }}"></image>
 	<view class="meta">
@@ -6,19 +5,24 @@
 		<text class="desc">{{ item.desc }}</text>
 		<text class="count">库存:{{ item.count }}</text>
 		<text class="sell">已售:{{ item.sell }}</text>
-		<text class="overplus">剩余:{{ item.overplus }}</text>
+		<text class="overplus">剩余:{{ item.count - sell }}</text>
 	</view>
 </view>
 <!-- 表单 -->
-<form bindsubmit="formSubmit">
+<form bindsubmit="formSubmit" name="order">
 	<view>请选择商品数量:</view>
 	<view class="choose">
 		<view class="btn">
+			<!-- <text bindtap="handleRed" style="background-image:url('../../images/updata/reduce.png')"></text> -->
 			<text bindtap="handleRed">-</text>
 			<text class="content">{{nums}}</text>
+			<!-- <text bindtap="handleAdd" style="background-image:url('../../images/updata/add.png')"></text> -->
 			<text bindtap="handleAdd">+</text>
 			<text>已选择:{{nums}} 件商品</text>
+			<view>商品总价￥: {{totalPrice}}</view>
+			<input style="display:none" name="nums" value="{{nums}}" />
+			<input style="display:none" name="totalPrice" value="{{totalPrice}}" />
 		</view>
 	</view>
-	<button form-type="submit" type="primary">点击订购</button>
+	<button form-type="submit" type="primary" disabled="{{btn_flag}}">点击订购</button>
 </form>
