@@ -57,7 +57,7 @@ form {
   /* width: 39rpx;
   height: 39rpx; */
   color: #fff;
-  width: 30rpx;
+  width: 45rpx;
   height: 45rpx;
   line-height: 45rpx;
   border-radius: 5rpx;

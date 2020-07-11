@@ -42,7 +42,7 @@
 <!-- 订单 -->
 <view wx:if='{{currentTab==="order"}}' class="order">
 	<block>
-		<view hidden="{{!order[0]}}" class="orderDetails" wx:for="{{order}}" wx:key="name">
+		<view hidden="{{!orders[0]}}" class="orderDetails" wx:for="{{orders}}" wx:key="name">
 			<view class="orderListTitle">
 				<text class="userName">{{item.pName}}</text>
 				<!-- <text class="orderStatus">{{item.status}}</text> -->
@@ -52,8 +52,8 @@
 					<image src="{{item.pic_url}}" background-size="cover"></image>
 				</view>
 				<view class="productInfo">
-					<view class="productTitle">预定时间: {{item.timer}}</view>
-					<text>当前状态：<text style="{{item.flag_sub ? 'color:green' : ''}}">{{item.status}}</text></text>
+					<view class="productTitle">预定时间: <text>{{item.timer}}</text></view>
+					<text>当前状态: <text style="{{item.flag_sub ? 'color:green' : ''}}">{{item.status}}</text></text>
 					<text style="display:block">数量: {{ item.nums }}</text>
 				</view>
 			</view>
@@ -63,7 +63,7 @@
 				</view>
 			</view>
 		</view>
-		<view hidden="{{order[0]}}">
+		<view hidden="{{orders[0]}}">
 			<text style="display:block; height:1000rpx; line-height: 1000rpx; text-align: center; color:#ccc">暂无订单</text>
 		</view>
 	</block>

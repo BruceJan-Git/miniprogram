@@ -1,6 +1,6 @@
 <!-- 轮播图区 -->
 <view class="carrousel">
-	<swiper autoplay="1000" indicator-dots="true" circular="true" indicator-color="rgba(246, 246, 246)" indicator-active-color="#00b26a">
+	<swiper autoplay="true" circular="true" interval="3000">
 		<swiper-item wx:for='{{ meta }}' wx:key='pid' bindtap="handleJump" data-id="{{item.pid}}">
 			<image src="{{ item.src }}" />
 		</swiper-item>

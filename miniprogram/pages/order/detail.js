@@ -96,10 +96,20 @@ Page({
       }, 500)
       // 获取用户名(用于订单动态展示)
       const db = wx.cloud.database()
-      const _ = db.command
       db.collection('counters').where({
         _openid: app.globalData.openid
       }).get().then(res => {
+        // db.collection('historyOrder').add({
+        //   data: {
+        //     openid: res.data[0]._openid,
+        //     meta: {
+        //       user: '',
+        //       pid: '',
+        //       pName: '',
+        //       nums: '',
+        //     }
+        //   }
+        // }).then(res => console.log(res)).catch(err => console.log(err))
         this.setData({
           userName: res.data[0].userName,
           tel: res.data[0].tel,
@@ -121,7 +131,8 @@ Page({
                 pid: res.data[0].pid,
                 status: '下单成功',
                 nums: nums,
-                timer: util.formatTime(new Date()),
+                // timer: util.formatTime(new Date()),
+                timer: new Date().getTime(),
                 flag_sub: false
               }
               // 提交成功的操作

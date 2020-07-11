@@ -112,6 +112,12 @@
 					"pathName": "pages/index/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "管理员",
+					"pathName": "pages/manager/manager",
+					"scene": null
 				}
 			]
 		}

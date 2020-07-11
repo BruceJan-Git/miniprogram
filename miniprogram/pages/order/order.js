@@ -1,4 +1,5 @@
 import getPro from "../../modules/getPro"
+let timeago = require('../../modules/timeago')
 Page({
   /**
    * 页面的初始数据
@@ -7,7 +8,7 @@ Page({
     currentTab: "order",
     meta: [],
     // 订单数据
-    order: [],
+    orders: [],
     ownId: ''
   },
 
@@ -46,8 +47,12 @@ Page({
             id: this.data.ownId
           }
         }).then(res => {
+          let res_map = res.result.data.map((item, index, self) => {
+            item.timer = timeago(item.timer)
+            return item
+          })
           this.setData({
-            order: res.result.data
+            orders: res_map,
           })
           wx.hideLoading()
           wx.stopPullDownRefresh()

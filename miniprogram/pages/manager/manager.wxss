@@ -1,0 +1,57 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.content form {
+  width: 100%;
+  border-bottom: 1rpx dashed black;
+  border-top: 1rpx dashed black;
+  margin-bottom: 20rpx;
+  background-color: lightblue;
+}
+
+.content .picker {
+  height: 84rpx;
+  line-height: 84rpx;
+  text-align: center;
+  border: 1rpx solid #ccc;
+  border-radius: 40rpx;
+  background-color: lawngreen;
+  color: blue;
+  margin: 20rpx 10rpx;
+}
+
+.content input {
+  padding: 12rpx;
+}
+
+.content button {
+  display: inline-block;
+  width: 50%;
+}
+
+button[form-type="reset"] {
+  background-color: #a8a8a8;
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  border: 1rpx solid rgb(27, 26, 26);
+  padding-top: 30rpx;
+  padding-left: 30rpx;
+  padding-bottom: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.order button {
+  margin-top: 20rpx;
+}
+
+.order_fa {
+  width: 100%;
+}

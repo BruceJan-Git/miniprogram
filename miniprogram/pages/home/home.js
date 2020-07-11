@@ -11,6 +11,7 @@
 import getPro from "../../modules/getPro";
 // 获取订单订购数量
 var getTotal = require('../../modules/getNums')
+let timeago = require('../../modules/timeago')
 const app = getApp()
 Page({
   // 页面初始数据
@@ -45,8 +46,12 @@ Page({
       })
       // 获取订单,轮播图动态展示
       db.collection('orders').where({}).get().then(res => {
+        let res_map = res.data.map((item, index, self) => {
+          item.timer = timeago(item.timer)
+          return item
+        })
         this.setData({
-          orders: res.data
+          orders: res_map,
         })
         wx.hideLoading()
         wx.stopPullDownRefresh()

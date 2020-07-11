@@ -14,7 +14,7 @@
 	</view>
 	<view class="prompt">
 		<checkbox-group bindchange="handleChange">
-			<checkbox checked>注册说明:点击注册后,手机号将绑定您的商户信息,用于找回密码等操作</checkbox>
+			<checkbox checked>注册说明:点击注册后,手机号将绑定您的商户名称,用于找回密码修改商户名称信息等操作</checkbox>
 		</checkbox-group>
 	</view>
 	<block wx:if="{{isShow === true}}">

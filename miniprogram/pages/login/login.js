@@ -18,17 +18,31 @@ Page({
   onLoad: function (options) { // 页面加载(用于获取数据)
   },
 
+  // 校验手机号格式
+  handleCheckTel(e) {
+    if (!(/^1[34578]\d{9}$/.test(e.detail.value.tel || e.detail.value))) {
+      wx.showToast({
+        title: '手机格式有误',
+        // duration: 2000,
+        icon: 'none',
+      });
+      return false
+    } else {
+      return true;
+    }
+  },
+
   submit(e) { // 表单提交事件(登录/注册)
     let id = e.detail.target.id // 获取自定义属性(判断是点击登录还是注册)
-    let user = e.detail.value.userName.trim() // 获取input文本框value
+    let tel = e.detail.value.userName.trim() // 获取input文本框value
     let paw = e.detail.value.paw.trim() // 获取input文本框value
     const db = wx.cloud.database() // 获取数据库引用
-    if (id === 'login' && user && paw) { // 非空/登录注册判断,查询数据库
+    if (id === 'login' && tel && paw) { // 非空/登录注册判断,查询数据库
       db.collection('counters').where({ // 查询是否注册过
-        userName: user,
+        tel: tel,
         paw: paw
       }).get().then(res => { // 获取查询结果
-        if (res.data[0] && res.data[0].userName === user && res.data[0].paw === paw) { // 账户密码吻合,则进行跳转操作(登录是否可以这样操作?)
+        if (res.data[0] && res.data[0].tel === tel && res.data[0].paw === paw) { // 账户密码吻合,则进行跳转操作(登录是否可以这样操作?)
           wx.showToast({ // 跳转到首页 是否使用定时函数延长提示时间
             title: '登录成功',
             success: () => {
@@ -41,7 +55,7 @@ Page({
           })
         } else if (res.data[0] === undefined) { // 未查询到结果(是否为账户不存在/密码不正确)
           db.collection('counters').where({
-            userName: user
+            tel: tel
           }).get().then(res => {
             if (res.data[0] === undefined) { // 未查询到数据,则进行注册引导
               wx.showModal({
@@ -79,6 +93,42 @@ Page({
       })
     }
   },
+
+  // manager跳转
+  handleJumpManager() {
+    this.setData({
+      flag: false
+    })
+  },
+
+  // 客户跳转
+  handleJumpCustomer() {
+    this.setData({
+      flag: true
+    })
+  },
+
+  // 管理员登录
+  submitManager(e) {
+    const manager = e.detail.value.manager.trim()
+    const paw = e.detail.value.paw.trim()
+    wx.cloud.callFunction({
+        name: "managerLogin"
+      })
+      .then(res => {
+        if (manager === res.result.data[0].user && paw === res.result.data[0].paw) {
+          wx.redirectTo({
+            url: '../../pages/manager/manager',
+          })
+        } else {
+          wx.showToast({
+            title: '账户或密码错误',
+            icon: 'none'
+          })
+        }
+      })
+  },
+
 
   onUnload() { // 页面卸载,清除定时函数
     clearTimeout(setTimer)
