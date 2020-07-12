@@ -1,6 +1,6 @@
 <!-- 轮播图区 -->
 <view class="carrousel">
-	<swiper autoplay="true" circular="true" interval="3000">
+	<swiper autoplay="true" circular="true" interval="5000">
 		<swiper-item wx:for='{{ meta }}' wx:key='pid' bindtap="handleJump" data-id="{{item.pid}}">
 			<image src="{{ item.src }}" />
 		</swiper-item>

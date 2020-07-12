@@ -8,7 +8,7 @@ exports.main = async (event, context) => {
   const db = cloud.database()
   const _ = db.command
   return db.collection('historyOrder')
-    .doc(`${event.arr[0]._openid}`)
+    .doc(`${event.id}`)
     .update({
       data: {
         meta: _.push(...event.arr)

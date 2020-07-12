@@ -11,7 +11,10 @@
 	</view>
 
 	<!-- 订单展示 -->
-	<!-- <view class="uploader">
-	</view> -->
+	<view class="uploader">
+	<!-- 不可以动态渲染 -->
+		<!-- <text>{{ 古城百利包 }}</text>  -->
+		<text>{{ takeSession }}</text>
+	</view>
 
 </view>

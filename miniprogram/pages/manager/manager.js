@@ -158,6 +158,8 @@ Page({
 
   // 订单清空
   submit_empty() {
+    let this_ = this
+    this.statistic()
     wx.showModal({
       cancelColor: 'cancelColor',
       content: '确定清空所有订单数据吗?此操作将删除客户端所有订单数据',
@@ -167,10 +169,11 @@ Page({
             name: 'managerOrderEmpty',
             data: {}
           }).then(res => {
-            if (result.stats.removed === 1) {
+            if (res.result.errMsg === 'collection.remove:ok') {
               wx.showToast({
                 title: '清空成功',
               })
+              this_.onLoadOrder()
             }
           }).catch(err => {
             wx.showToast({
@@ -268,7 +271,7 @@ Page({
             })
         } else if (res.cancel) {
           wx.showToast({
-            title: '取消删除',
+            title: '取消更新',
             icon: 'none'
           })
         }
@@ -286,22 +289,20 @@ Page({
       .then(res => {
         db.collection('historyOrder').where({}).get().then(res_ => {
           let result = [];
+          let id;
           for (let i = 0; i < res_.data.length; i++) {
             res.data.map((item) => {
               if (item._openid === res_.data[i].openid) {
                 result.push(item)
-                return result
+                id = res_.data[i]._id
+                return result, id
               }
             })
           }
-          // console.log(result[0]._openid)
-          // let arr = []
-          // arr.push([...result])
-          // console.log(arr)
-          // return
           wx.cloud.callFunction({
               name: 'managerHistory',
               data: {
+                id: id,
                 arr: result
               }
             })
@@ -315,31 +316,9 @@ Page({
       })
   },
 
-  // 获取历史订单并展示
-  // getOrderHistory() {
-  //   const db = wx.cloud.database()
-  //   db.collection('historyOrder')
-  //     .where({})
-  //     .orderBy('nums')
-  //     .get()
-  //     .then(res => {
-  //       // this.setData({
-  //       //   his_order: res.result.data
-  //       // })
-  //       console.log(res.data[0].arr)
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
-
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
     this.onLoadOrder()
-    this.statistic()
-    // this.getOrderHistory()
   },
-
-
 
 })

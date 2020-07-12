@@ -45,6 +45,14 @@
   height: 190rpx;
 }
 
+.activity swiper swiper-item {
+  overflow: hidden;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .activity swiper text {
   display: block;
   color: #666;

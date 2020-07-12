@@ -99,17 +99,6 @@ Page({
       db.collection('counters').where({
         _openid: app.globalData.openid
       }).get().then(res => {
-        // db.collection('historyOrder').add({
-        //   data: {
-        //     openid: res.data[0]._openid,
-        //     meta: {
-        //       user: '',
-        //       pid: '',
-        //       pName: '',
-        //       nums: '',
-        //     }
-        //   }
-        // }).then(res => console.log(res)).catch(err => console.log(err))
         this.setData({
           userName: res.data[0].userName,
           tel: res.data[0].tel,
@@ -120,48 +109,59 @@ Page({
             pid: id
           }).get().then(res => {
             let nums = Number(e.detail.value.nums)
-            // 设置orders订单数据
-            db.collection('orders').add({
-              data: {
-                user: this.data.userName,
-                tel: this.data.tel,
-                pName: res.data[0].name,
-                pic_url: res.data[0].src,
-                price: res.data[0].price,
-                pid: res.data[0].pid,
-                status: '下单成功',
-                nums: nums,
-                // timer: util.formatTime(new Date()),
-                timer: new Date().getTime(),
-                flag_sub: false
-              }
-              // 提交成功的操作
-            }).then(res => {
-              var that = this
-              wx.showModal({
-                cancelColor: '#8a8a8a',
-                title: '提示',
-                content: `您选择了${this.data.nums}件产品,请点击确认提交或取消`,
-                success(res_) {
-                  if (res_.confirm) {
-                    wx.reLaunch({
-                      url: `../../pages/home/home?id=${res._id}`,
+            var that = this
+            wx.showModal({
+              cancelColor: '#8a8a8a',
+              title: '提示',
+              content: `您选择了${this.data.nums}件产品,请点击确认提交或取消`,
+              success(res_) {
+                if (res_.confirm) {
+                  // 设置orders订单数据
+                  db.collection('orders').add({
+                    data: {
+                      user: that.data.userName,
+                      tel: that.data.tel,
+                      pName: res.data[0].name,
+                      pic_url: res.data[0].src,
+                      price: res.data[0].price,
+                      pid: res.data[0].pid,
+                      status: '下单成功',
+                      nums: nums,
+                      // timer: util.formatTime(new Date()),
+                      timer: new Date().getTime(),
+                      flag_sub: false
+                    }
+                    // 提交成功的操作
+                  }).then(res => {
+                    setTimeout(() => {
+                      wx.showToast({
+                        title: '提交成功',
+                      })
+                      wx.reLaunch({
+                        // url: `../../pages/home/home?id=${res._id}`,
+                        url:`../../pages/order/order?id=${res._id}`
+                      })
+                    }, 1500)
+                    // 失败的捕获
+                  }).catch(err => {
+                    wx.showToast({
+                      title: '提交失败,请稍后再试',
+                      icon: 'none',
+                      duration: 2000
                     })
-                  } else if (res_.cancel) {
-                    that.setData({
-                      btn_flag: false
-                    })
-                  }
+                    console.log(err)
+                  })
+                } else if (res_.cancel) {
+                  that.setData({
+                    btn_flag: false
+                  })
+                  wx.showToast({
+                    title: '取消提交,请重新选择或返回',
+                    icon: 'none',
+                    duration: 2000
+                  })
                 }
-              })
-              // 失败的捕获
-            }).catch(err => {
-              wx.showToast({
-                title: '提交失败,请稍后再试',
-                icon: 'none',
-                duration: 2000
-              })
-              console.log(err)
+              }
             })
           })
         })
@@ -178,14 +178,8 @@ Page({
     if (!app.globalData.openid) {
       this.onGetOpenid()
     }
-    // 获取已售商品数量 (费了)
-    // let id_orders = Number(options.id)
-    // let that = this
-    // getSell(id_orders, that)
-    // 获取商品数据
     const id = parseInt(options.id)
     const db = wx.cloud.database()
-    const _ = db.command
     db.collection('products').where({
       pid: id
     }).get().then(res => {
@@ -202,23 +196,6 @@ Page({
         proId: res.data[0].pid
       })
     })
-  },
+  }
 
-  // 生命周期函数--监听页面初次渲染完成
-  onReady: function () {},
-
-  // 生命周期函数--监听页面显示
-  onShow: function () {},
-
-  // 生命周期函数--监听页面隐藏
-  onHide: function () {},
-
-  // 生命周期函数--监听页面卸载
-  onUnload: function () {},
-
-  // 页面相关事件处理函数--监听用户下拉动作
-  onPullDownRefresh: function () {},
-
-  // 页面上拉触底事件的处理函数
-  onReachBottom: function () {},
 })

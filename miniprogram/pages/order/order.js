@@ -1,5 +1,7 @@
 import getPro from "../../modules/getPro"
 let timeago = require('../../modules/timeago')
+// 获取订单订购数量
+var getTotal = require('../../modules/getNums')
 Page({
   /**
    * 页面的初始数据
@@ -82,10 +84,35 @@ Page({
     return true
   },
 
+  onGetTotal(id) {
+    // 获取订单订购数量(订购数量,以及所订购商品id)
+    let res = getTotal(id)
+    // var that = this
+    res.then(res => {
+      // 判断是否有订单信息
+      if (res) {
+        // that.onPullDownRefresh()
+        let [nums, id] = res
+        nums = Number(nums)
+        // 调用云函数,更新商品总数
+        wx.cloud.callFunction({
+          name: 'updater_total',
+          data: {
+            nums: nums,
+            id: id
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    })
+  },
+
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
     this.onGetOpenid()
     // this.onLoadData()
+    this.onGetTotal(options.id)
   },
 
   /**

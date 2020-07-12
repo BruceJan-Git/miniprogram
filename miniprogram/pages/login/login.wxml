@@ -18,7 +18,7 @@
 
 	<view wx:else>
 		<form bindsubmit="submitManager">
-			<input placeholder="管理员账户" name="manager" focus="true" maxlength="14" adjust-position="true" />
+			<input placeholder="管理员账户" name="manager" maxlength="14" adjust-position="true" />
 			<input placeholder="请输入密码" name="paw" type="password" maxlength="14" />
 			<button form-type="submit" type="primary" id="login" style="width:100%">登录</button>
 		</form>

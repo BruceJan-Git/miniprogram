@@ -30,6 +30,7 @@
 		<view wx:if="{{order_data[0]}}" class="order_fa">
 			<view wx:for='{{ order_data }}' wx:key="_id" class="order">
 				<text>商户:{{ item.user }}</text>
+				<text>电话:{{ item.tel }}</text>
 				<text>订购产品:{{ item.pName }}</text>
 				<text>订购数量:{{ item.nums }}</text>
 				<text>订单状态:{{ item.status }}</text>
