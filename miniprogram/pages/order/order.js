@@ -108,6 +108,63 @@ Page({
     })
   },
 
+  // 客户端删除单个订单
+  handleDelSell(e) {
+    let this_ = this
+    const db = wx.cloud.database()
+    wx.showModal({
+      content: '确认删除该订单吗?',
+      success(res) {
+        if (res.confirm) {
+          wx.cloud.callFunction({
+              name: 'delSellOrder',
+              data: {
+                id: e.currentTarget.dataset.id
+              }
+            })
+            .then(res => {
+              if (res.result.errMsg === 'document.remove:ok') {
+                wx.showToast({
+                  title: '删除成功',
+                })
+                this_.onLoadData()
+              }
+            })
+            .catch(err => {
+              wx.showToast({
+                title: '删除失败,请稍后再试' + err,
+                icon: 'none'
+              })
+            })
+          db.collection('orders').where({
+              _id: e.currentTarget.dataset._id
+            })
+            .get()
+            .then(res => {
+              wx.cloud.callFunction({
+                name: 'updater_total',
+                data: {
+                  nums: -res.data[0].nums,
+                  id: res.data[0].pid
+                }
+              }).then(res => {
+                if (res.result.errMsg === 'collection.update:ok') {
+                  console.log('库存更新成功')
+                }
+              })
+            })
+            .catch(err => console.log(err))
+        } else if (res.cancel) {
+          wx.showToast({
+            title: '取消删除',
+            icon: 'none'
+          })
+        }
+      }
+    })
+
+  },
+
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
     this.onGetOpenid()

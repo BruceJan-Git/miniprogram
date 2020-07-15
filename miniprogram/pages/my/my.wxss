@@ -5,7 +5,8 @@ page {
   justify-content: flex-start;
 }
 
-.userinfo, .uploader {
+.userinfo,
+.uploader {
   margin-top: 40rpx;
   height: 140rpx;
   width: 100%;
@@ -19,10 +20,6 @@ page {
   transition: all 300ms ease;
 }
 
-.userinfo {
-  padding-left: 120rpx;
-}
-
 .userinfo-avatar {
   width: 100rpx;
   height: 100rpx;
@@ -30,6 +27,7 @@ page {
   border-radius: 50%;
   background-size: cover;
   background-color: white;
+  overflow: hidden;
 }
 
 .userinfo-avatar[size] {
@@ -57,4 +55,126 @@ page {
 
 .userinfo-nickname-wrapper {
   flex: 1;
+}
+
+view text {
+  display: block;
+}
+
+
+.historyOrder {
+  position: relative;
+  width: 100%;
+  height: 440rpx;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  border-radius: 40rpx;
+  overflow: hidden;
+}
+
+.active {
+  height: 100%;
+}
+
+.none {
+  display: none;
+}
+
+.historyOrder .title {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #dfddef;
+}
+
+.historyOrder .uploader {
+  height: 100rpx;
+  width: 100%;
+  margin-top: 0;
+}
+
+.historyOrder .btn {
+  position: absolute;
+  top: 340rpx;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #dfddef;
+}
+
+.historyOrder .btn_ {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #dfddef;
+  border-radius: 0 0 40rpx 40rpx;
+}
+
+.info {
+  width: 100%;
+  height: 100%;
+  /* text-align: center; */
+
+}
+
+.info .title {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  text-align: center;
+  background-color: #dfddef;
+  margin-top: 40rpx;
+  color: #007aff;
+  border-radius: 40rpx 40rpx 0 0;
+  overflow: hidden;
+}
+
+.info .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  /* height: 300rpx; */
+  min-height: 300rpx;
+  height: auto;
+  border-bottom: 2rpx solid gold;
+  border-top: 2rpx solid gold;
+  overflow: hidden;
+}
+
+.info .content text {
+  /* text-indent: 2rem; */
+  height: 70rpx;
+  line-height: 70rpx;
+}
+
+.section {
+  border: 1rpx solid #ccc;
+  border-radius: 40rpx;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.section .title {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #dfddef;
+}
+
+.section form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 260rpx;
+  padding: 40rpx;
+  text-indent: 2rem;
+}
+
+.section form button {
+  width: 100%;
+  background-color: #dfddef;
 }

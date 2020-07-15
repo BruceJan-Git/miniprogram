@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
     pid: event.id
   }).update({
     data: {
-      count: _.inc(-event.nums),
+      // count: _.inc(-event.nums),
       sell: _.inc(event.nums),
     }
   })

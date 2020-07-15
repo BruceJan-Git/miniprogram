@@ -118,9 +118,24 @@
 }
 
 .orderListTitle {
+  position: relative;
   height: 100rpx;
   line-height: 100rpx;
   border-bottom: 1rpx solid #BEBEBE;
+}
+
+.orderListTitle .btn {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 46rpx;
+  text-align: center;
+  border: 1rpx solid #f6f6f6;
+  right: 40rpx;
+  top: 25rpx;
+  color: #ccc;
+  background-color: #f6f6f6;
+  border-radius: 10rpx;
 }
 
 .orderListTitle .userName {

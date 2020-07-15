@@ -10,6 +10,7 @@
   width: 100%;
   border-bottom: 1rpx dashed black;
   border-top: 1rpx dashed black;
+  padding-bottom: 20rpx;
   margin-bottom: 20rpx;
   background-color: lightblue;
 }
@@ -30,8 +31,8 @@
 }
 
 .content button {
-  display: inline-block;
-  width: 50%;
+  /* display: inline-block; */
+  width: 80%;
 }
 
 button[form-type="reset"] {
@@ -54,4 +55,26 @@ button[form-type="reset"] {
 
 .order_fa {
   width: 100%;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 300rpx;
+  border-top: 1rpx dashed black;
+  border-bottom: 1rpx dashed black;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.feedback .item {
+  padding: 20rpx 20rpx;
+}
+
+.feedback .item text {
+  display: block;
 }

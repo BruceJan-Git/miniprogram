@@ -125,6 +125,7 @@ Page({
                       pic_url: res.data[0].src,
                       price: res.data[0].price,
                       pid: res.data[0].pid,
+                      name: res.data[0].name_e,
                       status: '下单成功',
                       nums: nums,
                       // timer: util.formatTime(new Date()),
@@ -139,7 +140,7 @@ Page({
                       })
                       wx.reLaunch({
                         // url: `../../pages/home/home?id=${res._id}`,
-                        url:`../../pages/order/order?id=${res._id}`
+                        url: `../../pages/order/order?id=${res._id}`
                       })
                     }, 1500)
                     // 失败的捕获
@@ -166,8 +167,30 @@ Page({
           })
         })
       }).catch(err => {
+        let this_ = this
         // 捕获获取用户失败的回调
         console.log(`捕获获取用户失败的回调${err}`)
+        wx.showModal({
+          title: '请登录后提交订单',
+          icon: 'none',
+          success(res) {
+            if (res.confirm) {
+              wx.reLaunch({
+                url: '../../pages/login/login',
+              })
+            } else if (res.cancel) {
+              wx.showToast({
+                title: '请登录后重试',
+                icon: 'none',
+                success() {
+                  this_.setData({
+                    btn_flag: false
+                  })
+                }
+              })
+            }
+          }
+        })
       })
     }
   },

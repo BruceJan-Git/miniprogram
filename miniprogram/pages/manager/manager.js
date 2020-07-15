@@ -209,6 +209,7 @@ Page({
   handleDelOrder(e) {
     let _id = e.currentTarget.dataset._id
     let this_ = this
+    const db = wx.cloud.database()
     wx.showModal({
       content: '确认删除该订单吗?',
       success(res) {
@@ -232,6 +233,25 @@ Page({
                 })
               }
             })
+
+          db.collection('orders').where({
+              _id: _id
+            })
+            .get()
+            .then(res => {
+              wx.cloud.callFunction({
+                name: 'updater_total',
+                data: {
+                  nums: -res.data[0].nums,
+                  id: res.data[0].pid
+                }
+              }).then(res => {
+                if (res.result.errMsg === 'collection.update:ok') {
+                  console.log('库存更新成功')
+                }
+              })
+            })
+            .catch(err => console.log(err))
         } else if (res.cancel) {
           wx.showToast({
             title: '取消删除',
@@ -316,9 +336,29 @@ Page({
       })
   },
 
+  getSug() {
+    const db = wx.cloud.database()
+    db.collection('feedBack').get().then(res => {
+      this.setData({
+        sug: res.data
+      })
+    }).catch(err => console.log(err))
+  },
+
+  handleClearSug() {
+    wx.cloud.callFunction({
+      name: 'clearSug',
+      data: {}
+    }).then(res => {
+      console.log(res)
+      this.onLoadOrder()
+    }).catch(err => console.log(err))
+  },
+
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
     this.onLoadOrder()
+    this.getSug()
   },
 
 })

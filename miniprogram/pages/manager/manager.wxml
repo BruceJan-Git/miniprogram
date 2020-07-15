@@ -1,5 +1,7 @@
 <view class="content">
 
+	<view style="width:100%; height:100rpx; line-height:100rpx; text-align:center; font-weight:700">管理员(Manager)</view>
+
 	<!-- 库存更新表单 -->
 	<form bindsubmit="submit_store">
 		<picker bindchange="bindStoreChange" value="{{index}}" range="{{productions}}">
@@ -48,11 +50,13 @@
 		<button type="primary" form-type="submit" style="margin-top:10rpx; width: 100%">清空所有订单</button>
 	</form>
 
-	<!-- 历史订单 -->
-	<!-- <view>
-		<text>商户:{{ item.user }}</text>
-		<text>订购产品:{{ item.pName }}</text>
-		<text>订购数量:{{ item.nums }}</text>
-	</view> -->
+	<!-- 商户反馈 -->
+	<view class="feedback">
+		<view class="item" wx:for="{{ sug }}" wx:key="_id">
+			<text>用户: {{ item.user }}</text>
+			<text>反馈内容: {{ item.msg }}</text>
+		</view>
+		<button bindtap="handleClearSug" type="warn" style="position:absolute; bottom:0; margin:20rpx 0; width:100%">清空反馈内容</button>
+	</view>
 
 </view>
