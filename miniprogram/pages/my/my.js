@@ -8,7 +8,8 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    flag: true
+    flag: true,
+    // activity: ['送友人', '青山横北郭，白水绕东城。', '此地一为别，孤蓬万里征。', '浮云游子意，落日故人情。', '挥手自兹去，萧萧班马鸣。']
   },
 
   onLoad: function () {
@@ -35,7 +36,8 @@ Page({
       }
     })
     this.onGetOpenid()
-    this.onLoadData()
+    // this.onLoadData()
+    this.onGetActivity()
   },
 
   // 调用云函数
@@ -47,6 +49,8 @@ Page({
       success: res => {
         this.setData({
           openid: res.result.openid
+        }, res => {
+          this.onLoadData()
         })
       },
       fail: err => {
@@ -60,7 +64,7 @@ Page({
     const db = wx.cloud.database()
     arr.forEach(item => {
       db.collection('historyOrder').where({
-        _openid: this.data.openid
+        openid: this.data.openid
       }).get().then(res => {
         let newArr = res.data[0].meta.filter((item_ => {
           return item_.pName === item
@@ -158,6 +162,17 @@ Page({
         }
       }).catch(err => console.log(err))
     })
+  },
+
+  onGetActivity() {
+    const db = wx.cloud.database()
+    db.collection("activity").where({
+      _openid: 'activity'
+    }).get().then(res => {
+      this.setData({
+        activity: res.data[0].activity
+      })
+    }).catch(err => console.log(err))
   },
 
   // 点击展开/收起

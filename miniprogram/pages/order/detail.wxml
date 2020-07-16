@@ -5,7 +5,7 @@
 		<text class="desc">{{ item.desc }}</text>
 		<text class="count">库存:{{ item.count }}</text>
 		<text class="sell">已售:{{ item.sell }}</text>
-		<text class="overplus">剩余:{{ item.count - sell }}</text>
+		<text class="overplus">剩余:{{ item.count - item.sell }}</text>
 	</view>
 </view>
 <!-- 表单 -->

@@ -355,6 +355,54 @@ Page({
     }).catch(err => console.log(err))
   },
 
+  formSubmit(e) {
+    let arr = []
+    if (e.detail.value.roule1.trim() || e.detail.value.roule2.trim() || e.detail.value.roule3.trim() || e.detail.value.roule4.trim() || e.detail.value.roule5.trim()) {
+      for (const key in e.detail.value) {
+        if (e.detail.value.hasOwnProperty(key)) {
+          const element = e.detail.value[key];
+          if (element) {
+            arr.push(element)
+          }
+        }
+      }
+      wx.cloud.callFunction({
+        name: 'addBill',
+        data: {
+          arr: arr
+        }
+      }).then(res => {
+        if (res.result.errMsg === 'collection.update:ok') {
+          wx.showToast({
+            title: '提交成功',
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '请输入内容再提交',
+        icon: 'none'
+      })
+    }
+  },
+
+  handleEmptyBill() {
+    wx.cloud.callFunction({
+      name: 'emptyBill',
+      data: {}
+    }).then(res => {
+      if(res.result.errMsg === 'collection.update:ok') {
+        wx.showToast({
+          title: '告示清空成功',
+        })
+      }
+    }).catch(err => {
+      wx.showToast({
+        title: '清空失败' + err,
+      })
+    })
+  },
+
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
     this.onLoadOrder()

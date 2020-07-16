@@ -45,7 +45,7 @@
 		<view hidden="{{!orders[0]}}" class="orderDetails" wx:for="{{orders}}" wx:key="name">
 			<view class="orderListTitle">
 				<text class="userName">{{item.pName}}</text>
-				<text class="btn" bindtap="handleDelSell" data-id="{{item._id}}">×</text>
+				<text hidden="{{item.status === '正在配送...'}}" class="btn" bindtap="handleDelSell" data-id="{{item._id}}">×</text>
 				<!-- <text class="orderStatus">{{item.status}}</text> -->
 			</view>
 			<view class="orderListDetails">

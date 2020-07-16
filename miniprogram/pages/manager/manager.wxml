@@ -59,4 +59,18 @@
 		<button bindtap="handleClearSug" type="warn" style="position:absolute; bottom:0; margin:20rpx 0; width:100%">清空反馈内容</button>
 	</view>
 
+	<!-- 活动告示 -->
+	<view class="billboard feedback">
+		<form name="billboard" bindsubmit="formSubmit">
+			<input placeholder="请输入告示内容1" name="roule1"></input>
+			<input placeholder="请输入告示内容2" name="roule2"></input>
+			<input placeholder="请输入告示内容3" name="roule3"></input>
+			<input placeholder="请输入告示内容4" name="roule4"></input>
+			<input placeholder="请输入告示内容5" name="roule5"></input>
+			<button type="primary" form-type="submit">提交活动告示</button>
+			<button form-type="reset">重置</button>
+			<button bindtap="handleEmptyBill" type="warn">清空告示</button>
+		</form>
+	</view>
+
 </view>

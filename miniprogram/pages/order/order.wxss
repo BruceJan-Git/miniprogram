@@ -133,7 +133,7 @@
   border: 1rpx solid #f6f6f6;
   right: 40rpx;
   top: 25rpx;
-  color: #ccc;
+  color: red;
   background-color: #f6f6f6;
   border-radius: 10rpx;
 }
