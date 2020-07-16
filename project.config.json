@@ -58,13 +58,6 @@
 			"current": -1,
 			"list": [
 				{
-					"id": 0,
-					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide",
-					"query": "",
-					"scene": null
-				},
-				{
 					"id": 1,
 					"name": "主页",
 					"pathName": "pages/home/home",
@@ -108,15 +101,9 @@
 				},
 				{
 					"id": -1,
-					"name": "Demo",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "管理员",
 					"pathName": "pages/manager/manager",
+					"query": "",
 					"scene": null
 				}
 			]

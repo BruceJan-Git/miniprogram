@@ -71,8 +71,12 @@ button[form-type="reset"] {
   margin-bottom: 20rpx;
 }
 
+.feedback view:nth-last-child(2) {
+  margin-bottom: 100rpx;
+}
+
 .feedback .item {
-  padding: 20rpx 20rpx;
+  padding: 10rpx 20rpx;
 }
 
 .feedback .item text {
@@ -83,4 +87,37 @@ button[form-type="reset"] {
   padding: 50rpx;
   margin: 20rpx 0;
   border: 1rpx solid #fff;
+}
+
+.customer {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  min-height: 300rpx;
+}
+
+.customer .customer_item {
+  position: relative;
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.customer .customer_item .btn {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  top: 0;
+  right: 30rpx;
+  background-color: #ccc;
+  color: red;
+}
+
+.customer text {
+  display: block;
 }

@@ -18,9 +18,10 @@
 				</view>
 			</view>
 			<view wx:else>
-				<text style="color:#ccc; height:300rpx; line-height:300rpx">暂无活动公告</text>
+				<text style="color:#ccc; height:150rpx; line-height:150rpx">暂无活动公告</text>
 			</view>
 		</view>
+		<text class="bottom"></text>
 	</view>
 	<!-- 累计订购 -->
 	<view class="{{ flag ? 'historyOrder' : 'historyOrder active'}}">

@@ -1,26 +1,11 @@
 {
   "pages": [
     "pages/login/login",
-    "pages/index/index",
-    "pages/openapi/cloudid/cloudid",
     "pages/register/register",
     "pages/home/home",
     "pages/order/order",
     "pages/order/detail",
     "pages/my/my",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/im/im",
-    "pages/im/room/room",
-    "pages/test/test",
-    "components/custom-form-field/custom-form-field",
     "pages/manager/manager"
   ],
   "window": {

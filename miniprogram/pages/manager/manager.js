@@ -152,6 +152,7 @@ Page({
     })
   },
 
+  // 重置事件
   reset() {
     this.empty_data()
   },
@@ -336,6 +337,7 @@ Page({
       })
   },
 
+  // 获取建议反馈
   getSug() {
     const db = wx.cloud.database()
     db.collection('feedBack').get().then(res => {
@@ -345,16 +347,26 @@ Page({
     }).catch(err => console.log(err))
   },
 
+  // 清空建议反馈
   handleClearSug() {
+    let this_ = this
     wx.cloud.callFunction({
       name: 'clearSug',
       data: {}
     }).then(res => {
-      console.log(res)
+      if (res.result.errMsg === 'collection.remove:ok') {
+        wx.showToast({
+          title: '清空反馈成功',
+          success() {
+            this_.getSug()
+          }
+        })
+      }
       this.onLoadOrder()
     }).catch(err => console.log(err))
   },
 
+  // 添加公告告示  
   formSubmit(e) {
     let arr = []
     if (e.detail.value.roule1.trim() || e.detail.value.roule2.trim() || e.detail.value.roule3.trim() || e.detail.value.roule4.trim() || e.detail.value.roule5.trim()) {
@@ -386,12 +398,13 @@ Page({
     }
   },
 
+  // 清空公告告示
   handleEmptyBill() {
     wx.cloud.callFunction({
       name: 'emptyBill',
       data: {}
     }).then(res => {
-      if(res.result.errMsg === 'collection.update:ok') {
+      if (res.result.errMsg === 'collection.update:ok') {
         wx.showToast({
           title: '告示清空成功',
         })
@@ -403,10 +416,59 @@ Page({
     })
   },
 
+  // 获取用户信息(修改/删除)
+  handleGetCustomer() {
+    const db = wx.cloud.database()
+    db.collection('counters').where({}).get().then(res => {
+      this.setData({
+        customer: res.data
+      })
+    })
+  },
+
+  // 删除用户事件
+  handleDelUser(e) {
+    let this_ = this
+    let id = e.currentTarget.dataset.id
+    wx.showModal({
+      content: '确认删除该用户吗?',
+      success(res) {
+        if (res.confirm) {
+          wx.cloud.callFunction({
+            name: 'delUser',
+            data: {
+              id: id
+            }
+          }).then(res => {
+            if (res.result.errMsg === 'document.remove:ok') {
+              wx.showToast({
+                title: '删除成功',
+                success() {
+                  this_.handleGetCustomer()
+                }
+              })
+            }
+          }).catch(err => {
+            wx.showToast({
+              title: `删除失败${err}`,
+              icon: 'none'
+            })
+          })
+        } else if (res.cancel) {
+          wx.showToast({
+            title: '取消删除',
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
     this.onLoadOrder()
     this.getSug()
+    this.handleGetCustomer()
   },
 
 })

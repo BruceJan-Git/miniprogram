@@ -132,6 +132,17 @@ view text {
   overflow: hidden;
 }
 
+.info .bottom {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  text-align: center;
+  background-color: #dfddef;
+  color: #007aff;
+  border-radius: 0 0 40rpx 40rpx;
+  overflow: hidden;
+}
+
 .info .content {
   display: flex;
   flex-direction: column;
@@ -140,10 +151,10 @@ view text {
   box-sizing: border-box;
   padding: 40rpx;
   width: 100%;
-  min-height: 300rpx;
+  min-height: 200rpx;
   height: auto;
-  border-bottom: 2rpx solid gold;
-  border-top: 2rpx solid gold;
+  border-bottom: 5rpx solid gold;
+  border-top: 5rpx solid gold;
   overflow: hidden;
   text-align: center;
 }

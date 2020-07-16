@@ -22,7 +22,7 @@
 				{{productions[index_]}}
 			</view>
 		</picker>
-		<input placeholder="输入订单处理状态,如:仓库已接单" name="status"></input>
+		<input placeholder="输入订单处理状态,如:正在配送..." name="status"></input>
 		<button form-type="reset" bindtap="reset">重置</button>
 		<button type="primary" form-type="submit">订单处理</button>
 	</form>
@@ -56,7 +56,7 @@
 			<text>用户: {{ item.user }}</text>
 			<text>反馈内容: {{ item.msg }}</text>
 		</view>
-		<button bindtap="handleClearSug" type="warn" style="position:absolute; bottom:0; margin:20rpx 0; width:100%">清空反馈内容</button>
+		<button bindtap="handleClearSug" type="warn" style="position:absolute; bottom:-40rpx; margin:20rpx 0; width:100%">清空反馈内容</button>
 	</view>
 
 	<!-- 活动告示 -->
@@ -71,6 +71,20 @@
 			<button form-type="reset">重置</button>
 			<button bindtap="handleEmptyBill" type="warn">清空告示</button>
 		</form>
+	</view>
+
+	<!-- 客户管理 -->
+	<view class="customer">
+		<view>
+			<text style="color:red; font-weight:600">客户管理</text>
+		</view>
+		<view wx:for="{{customer}}" wx:key="index" class="customer_item">
+			<view>
+				<text>用户:{{ item.userName }}</text>
+				<text>电话:{{ item.tel }}</text>
+				<text bindtap="handleDelUser" data-id="{{item._id}}" class="btn">×</text>
+			</view>
+		</view>
 	</view>
 
 </view>

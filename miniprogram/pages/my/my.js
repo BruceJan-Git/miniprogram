@@ -191,24 +191,51 @@ Page({
   // 反馈事件
   bindFormSubmit: function (e) {
     const db = wx.cloud.database()
-    console.log(this.data.openid)
+    let this_ = this
     db.collection('counters').where({
       _openid: this.data.openid,
     }).get().then(res => {
-      if (e.detail.value.textarea.trim()) {
-        db.collection('feedBack').add({
-            data: {
-              user: res.data[0].userName,
-              msg: e.detail.value.textarea,
-              nums: 1
-            }
+      if (res.data[0]) {
+        if (e.detail.value.textarea.trim()) {
+          db.collection('feedBack').add({
+              data: {
+                user: res.data[0].userName,
+                msg: e.detail.value.textarea,
+                nums: 1
+              }
+            })
+            .then(res => {
+              if (res.errMsg === 'collection.add:ok') {
+                wx.showToast({
+                  title: '反馈成功',
+                  duration: 2000,
+                  success() {
+                    this_.setData({
+                      sug: ''
+                    })
+                  }
+                })
+              }
+            })
+        } else {
+          wx.showToast({
+            title: '请输入内容后提交',
+            icon: 'none',
+            duration: 2000
           })
-          .then(res => {
-            let this_ = this
-            if (res.errMsg === 'collection.add:ok') {
+        }
+      } else {
+        wx.showModal({
+          content: '请登录注册后提交反馈',
+          success(res) {
+            if (res.confirm) {
+              wx.reLaunch({
+                url: '../../pages/login/login',
+              })
+            } else if (res.cancel) {
               wx.showToast({
-                title: '反馈成功',
-                duration: 2000,
+                title: '取消登录',
+                icon: 'none',
                 success() {
                   this_.setData({
                     sug: ''
@@ -216,14 +243,10 @@ Page({
                 }
               })
             }
-          })
-      } else {
-        wx.showToast({
-          title: '请输入内容后提交',
-          icon: 'none',
-          duration: 2000
+          }
         })
       }
+
     })
   }
 
